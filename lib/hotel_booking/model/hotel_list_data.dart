@@ -7,23 +7,30 @@ class NetworkRequest {
 
   NetworkRequest({required this.url});
 
-  Future<List<HotelListData>> fetchData() async {
+  Future<Map<String, dynamic>> fetchData() async {
     var response = await dio.get(url);
     if (response.statusCode == 200) {
-      List<dynamic> jsonResponse = response.data;
+      List<dynamic> jsonResponse = response.data["data"];
+      int collectionNum = response.data["collectionNum"];
       List<String> processedResponse = [];
 
       strprocess(jsonResponse, processedResponse);
 
       List<Map<String, dynamic>> parsedResponse = [];
       responseConvert(processedResponse, parsedResponse);
-      return parsedResponse
+      List<HotelListData> hotelList = parsedResponse
           .map((item) => HotelListData.fromJson(item))
           .toList();
+
+      return {
+        'hotelList': hotelList,
+        'collectionNum': collectionNum,
+      };
     } else {
       throw Exception('Failed to load data');
     }
   }
+
 
   void responseConvert(List<String> processedResponse,
       List<Map<String, dynamic>> parsedResponse) {

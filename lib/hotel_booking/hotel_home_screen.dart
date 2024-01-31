@@ -4,6 +4,7 @@ import 'package:best_flutter_ui_templates/hotel_booking/model/hotel_list_data.da
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import '../design_course/design_course_app_theme.dart';
 import 'filters_screen.dart';
 import 'hotel_app_theme.dart';
 
@@ -16,6 +17,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
   List<HotelListData> hotelList = [];
+  int collectionNum = 0;
   final ScrollController _scrollController = ScrollController();
 
   DateTime startDate = DateTime.now();
@@ -31,7 +33,9 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
 
   void fetchData() async {
     NetworkRequest networkRequest = NetworkRequest(url: 'http://101.200.197.49:5000/chinese/filter_collections?name%3D&category%3D=&existing_location%3D&period%3D=&artist%3D');
-    hotelList = await networkRequest.fetchData();
+    Map<String, dynamic> result = await networkRequest.fetchData();
+    hotelList = result['hotelList'];
+    collectionNum = result['collectionNum'];
     setState(() {});
   }
 
@@ -432,10 +436,12 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '530 collections found',
+                      '${collectionNum} collections found',
                       style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        letterSpacing: 0.27,
+                        color: DesignCourseAppTheme.grey,
                       ),
                     ),
                   ),
@@ -466,8 +472,10 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           Text(
                             'Filter',
                             style: TextStyle(
-                              fontWeight: FontWeight.w100,
-                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              letterSpacing: 0.27,
+                              color: DesignCourseAppTheme.grey,
                             ),
                           ),
                           Padding(
