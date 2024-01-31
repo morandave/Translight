@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import '../hotel_booking/model/hotel_list_data.dart';
 import 'design_course_app_theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:best_flutter_ui_templates/hotel_booking/hotel_app_theme.dart';
 
 class CourseInfoScreen extends StatefulWidget {
+  HotelListData? hotelData;
+  CourseInfoScreen({Key? key, this.hotelData}) : super(key: key);
   @override
   _CourseInfoScreenState createState() => _CourseInfoScreenState();
 }
@@ -14,6 +19,15 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
   double opacity1 = 0.0;
   double opacity2 = 0.0;
   double opacity3 = 0.0;
+  String name = '';
+  String category = '';
+  String period = '';
+  String dimension = '';
+  String introduction = '';
+  String existingLocation = '';
+  String origin = '';
+  String imageurl = '';
+
   @override
   void initState() {
     animationController = AnimationController(
@@ -23,6 +37,16 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
         curve: Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
     setData();
     super.initState();
+    if (widget.hotelData != null) {
+      name = widget.hotelData!.name;
+      category = widget.hotelData!.category;
+      period = widget.hotelData!.period;
+      existingLocation = widget.hotelData!.existingLocation;
+      imageurl = widget.hotelData!.imageurl;
+      origin = widget.hotelData!.origin;
+      introduction = widget.hotelData!.introduction;
+      dimension = widget.hotelData!.dimension;
+    }
   }
 
   Future<void> setData() async {
@@ -56,7 +80,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.2,
-                  child: Image.asset('assets/design_course/webInterFace.png'),
+                  child: Image.network(imageurl),
                 ),
               ],
             ),
@@ -95,7 +119,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             padding: const EdgeInsets.only(
                                 top: 32.0, left: 18, right: 16),
                             child: Text(
-                              'Web Design\nCourse',
+                              name,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -109,11 +133,11 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             padding: const EdgeInsets.only(
                                 left: 16, right: 16, bottom: 8, top: 16),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '\$28.99',
+                                  period + '  ' + category,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w200,
@@ -125,8 +149,14 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                 Container(
                                   child: Row(
                                     children: <Widget>[
+                                      Icon(
+                                        FontAwesomeIcons.locationDot,
+                                        size: 12,
+                                        color: HotelAppTheme.buildLightTheme()
+                                            .primaryColor,
+                                      ),
                                       Text(
-                                        '4.3',
+                                        existingLocation,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w200,
@@ -134,11 +164,6 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                           letterSpacing: 0.27,
                                           color: DesignCourseAppTheme.grey,
                                         ),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: DesignCourseAppTheme.nearlyBlue,
-                                        size: 24,
                                       ),
                                     ],
                                   ),
@@ -151,11 +176,29 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             opacity: opacity1,
                             child: Padding(
                               padding: const EdgeInsets.all(8),
-                              child: Row(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  getTimeBoxUI('24', 'Classe'),
-                                  getTimeBoxUI('2hours', 'Time'),
-                                  getTimeBoxUI('24', 'Seat'),
+                                  Text(
+                                    '藏品来源：' + origin,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      letterSpacing: 0.27,
+                                      color: DesignCourseAppTheme.grey,
+                                    ),
+                                  ),
+                                  Text(
+                                    '藏品尺寸：' + dimension,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      letterSpacing: 0.27,
+                                      color: DesignCourseAppTheme.grey,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -167,90 +210,91 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 16, right: 16, top: 8, bottom: 8),
-                                child: Text(
-                                  'Lorem ipsum is simply dummy text of printing & typesetting industry, Lorem ipsum is simply dummy text of printing & typesetting industry.',
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 14,
-                                    letterSpacing: 0.27,
-                                    color: DesignCourseAppTheme.grey,
+                                child: SingleChildScrollView(
+                                  child: Text(
+                                    introduction,
+                                    textAlign: TextAlign.justify,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w200,
+                                      fontSize: 18,
+                                      letterSpacing: 0.27,
+                                      color: DesignCourseAppTheme.grey,
+                                    ),
                                   ),
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
                           ),
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 500),
-                            opacity: opacity3,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16, bottom: 16, right: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    width: 48,
-                                    height: 48,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: DesignCourseAppTheme.nearlyWhite,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                        border: Border.all(
-                                            color: DesignCourseAppTheme.grey
-                                                .withOpacity(0.2)),
-                                      ),
-                                      child: Icon(
-                                        Icons.add,
-                                        color: DesignCourseAppTheme.nearlyBlue,
-                                        size: 28,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                        color: DesignCourseAppTheme.nearlyBlue,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                              color: DesignCourseAppTheme
-                                                  .nearlyBlue
-                                                  .withOpacity(0.5),
-                                              offset: const Offset(1.1, 1.1),
-                                              blurRadius: 10.0),
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Join Course',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            letterSpacing: 0.0,
-                                            color: DesignCourseAppTheme
-                                                .nearlyWhite,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+
+                          // AnimatedOpacity(
+                          //   duration: const Duration(milliseconds: 500),
+                          //   opacity: opacity3,
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.only(
+                          //         left: 16, bottom: 16, right: 16),
+                          //     child: Row(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       crossAxisAlignment: CrossAxisAlignment.center,
+                          //       children: <Widget>[
+                          //         Container(
+                          //           width: 48,
+                          //           height: 48,
+                          //           child: Container(
+                          //             decoration: BoxDecoration(
+                          //               color: DesignCourseAppTheme.nearlyWhite,
+                          //               borderRadius: const BorderRadius.all(
+                          //                 Radius.circular(16.0),
+                          //               ),
+                          //               border: Border.all(
+                          //                   color: DesignCourseAppTheme.grey
+                          //                       .withOpacity(0.2)),
+                          //             ),
+                          //             child: Icon(
+                          //               Icons.add,
+                          //               color: DesignCourseAppTheme.nearlyBlue,
+                          //               size: 28,
+                          //             ),
+                          //           ),
+                          //         ),
+                          //         const SizedBox(
+                          //           width: 16,
+                          //         ),
+                          //         Expanded(
+                          //           child: Container(
+                          //             height: 48,
+                          //             decoration: BoxDecoration(
+                          //               color: DesignCourseAppTheme.nearlyBlue,
+                          //               borderRadius: const BorderRadius.all(
+                          //                 Radius.circular(16.0),
+                          //               ),
+                          //               boxShadow: <BoxShadow>[
+                          //                 BoxShadow(
+                          //                     color: DesignCourseAppTheme
+                          //                         .nearlyBlue
+                          //                         .withOpacity(0.5),
+                          //                     offset: const Offset(1.1, 1.1),
+                          //                     blurRadius: 10.0),
+                          //               ],
+                          //             ),
+                          //             child: Center(
+                          //               child: Text(
+                          //                 'Join Course',
+                          //                 textAlign: TextAlign.left,
+                          //                 style: TextStyle(
+                          //                   fontWeight: FontWeight.w600,
+                          //                   fontSize: 18,
+                          //                   letterSpacing: 0.0,
+                          //                   color: DesignCourseAppTheme
+                          //                       .nearlyWhite,
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         )
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(
                             height: MediaQuery.of(context).padding.bottom,
                           )
@@ -330,7 +374,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-              left: 18.0, right: 18.0, top: 12.0, bottom: 12.0),
+              left: 12.0, right: 12.0, top: 8.0, bottom: 8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

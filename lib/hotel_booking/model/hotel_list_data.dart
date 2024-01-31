@@ -1,89 +1,3 @@
-// class HotelListData {
-//   HotelListData({
-//     this.imageurl = '',
-//     this.name = '',
-//     this.category = "",
-//     this.period = "",
-//     this.existingLocation = '',
-//     this.dist = 1.8,
-//     this.reviews = 80,
-//     this.rating = 4.5,
-//     this.perNight = 180,
-//   });
-//
-//   String imageurl;
-//   String name;
-//   String category;
-//   String period;
-//   String existingLocation;
-//   double dist;
-//   double rating;
-//   int reviews;
-//   int perNight;
-//
-//   static List<HotelListData> hotelList = <HotelListData>[
-//     HotelListData(
-//       imageurl:
-//           'https://moran-collection.obs.cn-north-4.myhuaweicloud.com/XuZhouMuseum/西汉“楚祠祀印”铜印.jpg',
-//       name: '西汉“楚祠祀印”铜印',
-//       category: '玺印',
-//       period: '西汉',
-//       existingLocation: '徐州博物馆',
-//       dist: 2.0,
-//       reviews: 80,
-//       rating: 4.4,
-//       perNight: 180,
-//     ),
-//     HotelListData(
-//       imageurl:
-//           'https://moran-collection.obs.cn-north-4.myhuaweicloud.com/XuZhouMuseum/西汉“楚骑千人”铜印.jpg',
-//       name: '西汉“楚骑千人”铜印',
-//       category: '玺印',
-//       period: '西汉',
-//       existingLocation: '徐州博物馆',
-//       dist: 4.0,
-//       reviews: 74,
-//       rating: 4.5,
-//       perNight: 200,
-//     ),
-//     HotelListData(
-//       imageurl:
-//           'https://moran-collection.obs.cn-north-4.myhuaweicloud.com/XuZhouMuseum/西汉“楚候之印”铜印.jpg',
-//       name: '西汉“楚候之印”铜印',
-//       category: '玺印',
-//       period: '西汉',
-//       existingLocation: '徐州博物馆',
-//       dist: 3.0,
-//       reviews: 62,
-//       rating: 4.0,
-//       perNight: 60,
-//     ),
-//     HotelListData(
-//       imageurl:
-//           'https://moran-collection.obs.cn-north-4.myhuaweicloud.com/XuZhouMuseum/西汉“楚司马印”铜印.jpg',
-//       name: '西汉“楚司马印”铜印',
-//       category: '玺印',
-//       period: '西汉',
-//       existingLocation: '徐州博物馆',
-//       dist: 7.0,
-//       reviews: 90,
-//       rating: 4.4,
-//       perNight: 170,
-//     ),
-//     HotelListData(
-//       imageurl:
-//           'https://moran-collection.obs.cn-north-4.myhuaweicloud.com/XuZhouMuseum/西汉“宛朐侯埶”龟钮金印.jpg',
-//       name: '西汉“宛朐侯埶”龟钮金印',
-//       category: '玺印',
-//       period: '西汉',
-//       existingLocation: '徐州博物馆',
-//       dist: 2.0,
-//       reviews: 240,
-//       rating: 4.5,
-//       perNight: 200,
-//     ),
-//   ];
-// }
 import 'dart:convert';
 import 'package:dio/dio.dart';
 
@@ -96,7 +10,6 @@ class NetworkRequest {
   Future<List<HotelListData>> fetchData() async {
     var response = await dio.get(url);
     if (response.statusCode == 200) {
-
       List<dynamic> jsonResponse = response.data;
       List<String> processedResponse = [];
 
@@ -104,13 +17,16 @@ class NetworkRequest {
 
       List<Map<String, dynamic>> parsedResponse = [];
       responseConvert(processedResponse, parsedResponse);
-      return parsedResponse.map((item) => HotelListData.fromJson(item)).toList();
+      return parsedResponse
+          .map((item) => HotelListData.fromJson(item))
+          .toList();
     } else {
       throw Exception('Failed to load data');
     }
   }
 
-  void responseConvert(List<String> processedResponse, List<Map<String, dynamic>> parsedResponse) {
+  void responseConvert(List<String> processedResponse,
+      List<Map<String, dynamic>> parsedResponse) {
     for (var item in processedResponse) {
       Map<String, dynamic> map = {};
       RegExp exp = RegExp(r'(\w+)=([^,]*)');
@@ -136,7 +52,6 @@ class NetworkRequest {
   }
 }
 
-
 class HotelListData {
   HotelListData({
     this.imageurl = '',
@@ -144,6 +59,9 @@ class HotelListData {
     this.category = "",
     this.period = "",
     this.existingLocation = '',
+    this.dimension = '',
+    this.introduction = '',
+    this.origin = '',
     this.dist = 1.8,
     this.reviews = 80,
     this.rating = 4.5,
@@ -155,6 +73,9 @@ class HotelListData {
   String category;
   String period;
   String existingLocation;
+  String dimension;
+  String introduction;
+  String origin;
   double dist;
   double rating;
   int reviews;
@@ -167,6 +88,9 @@ class HotelListData {
       category: json['category'],
       period: json['period'],
       existingLocation: json['existingLocation'],
+      introduction: json['introduction'],
+      origin: json['collectionSource'],
+      dimension: json['dimensions'],
       dist: 2.0,
       reviews: 80,
       rating: 4.4,

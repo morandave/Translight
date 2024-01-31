@@ -29,7 +29,7 @@ class _InviteFriendState extends State<InviteFriend> {
                     top: MediaQuery.of(context).padding.top,
                     left: 16,
                     right: 16),
-                child: Image.asset('assets/images/inviteImage.png'),
+                child: Image.asset('assets/images/inviteImage.jpg'),
               ),
               Container(
                 padding: const EdgeInsets.only(top: 8),

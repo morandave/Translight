@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../design_course/course_info_screen.dart';
 import 'model/hotel_list_data.dart';
 
 class HotelListView extends StatelessWidget {
@@ -19,6 +20,15 @@ class HotelListView extends StatelessWidget {
   final AnimationController? animationController;
   final Animation<double>? animation;
 
+  void navigateToPage(BuildContext context, String routeName, HotelListData? hotelData) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CourseInfoScreen(hotelData: hotelData),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -34,7 +44,9 @@ class HotelListView extends StatelessWidget {
                   left: 24, right: 24, top: 8, bottom: 16),
               child: InkWell(
                 splashColor: Colors.transparent,
-                onTap: callback,
+                onTap: () {
+                  navigateToPage(context, '/courseInfo', hotelData!);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -61,7 +73,8 @@ class HotelListView extends StatelessWidget {
                             ),
                             Container(
                               color: HotelAppTheme.buildLightTheme()
-                                  .colorScheme.background,
+                                  .colorScheme
+                                  .background,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,10 +105,13 @@ class HotelListView extends StatelessWidget {
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  hotelData!.category+ '  '+ hotelData!.period,
+                                                  hotelData!.category +
+                                                      '  ' +
+                                                      hotelData!.period,
                                                   style: TextStyle(
                                                       fontSize: 14,
-                                                      color: Color.fromARGB(255, 16, 16, 16)
+                                                      color: Color.fromARGB(
+                                                              255, 16, 16, 16)
                                                           .withOpacity(0.8)),
                                                 ),
                                                 const SizedBox(
@@ -108,67 +124,18 @@ class HotelListView extends StatelessWidget {
                                                           .buildLightTheme()
                                                       .primaryColor,
                                                 ),
-                                                 Text(
-                                                    hotelData!.existingLocation,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Color.fromARGB(255, 15, 15, 15)
-                                                            .withOpacity(0.8)),
-                                                  ),
-                                                
+                                                Text(
+                                                  hotelData!.existingLocation,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Color.fromARGB(
+                                                              255, 15, 15, 15)
+                                                          .withOpacity(0.8)),
+                                                ),
                                               ],
                                             ),
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.only(top: 4),
-                                            //   child: Row(
-                                            //     children: <Widget>[
-                                            //       RatingBar(
-                                            //         initialRating:
-                                            //             hotelData!.rating,
-                                            //         direction: Axis.horizontal,
-                                            //         allowHalfRating: true,
-                                            //         itemCount: 5,
-                                            //         itemSize: 24,
-                                            //         ratingWidget: RatingWidget(
-                                            //           full: Icon(
-                                            //             Icons.star_rate_rounded,
-                                            //             color: HotelAppTheme
-                                            //                     .buildLightTheme()
-                                            //                 .primaryColor,
-                                            //           ),
-                                            //           half: Icon(
-                                            //             Icons.star_half_rounded,
-                                            //             color: HotelAppTheme
-                                            //                     .buildLightTheme()
-                                            //                 .primaryColor,
-                                            //           ),
-                                            //           empty: Icon(
-                                            //             Icons
-                                            //                 .star_border_rounded,
-                                            //             color: HotelAppTheme
-                                            //                     .buildLightTheme()
-                                            //                 .primaryColor,
-                                            //           ),
-                                            //         ),
-                                            //         itemPadding:
-                                            //             EdgeInsets.zero,
-                                            //         onRatingUpdate: (rating) {
-                                            //           print(rating);
-                                            //         },
-                                            //       ),
-                                            //       Text(
-                                            //         ' ${hotelData!.reviews} Reviews',
-                                            //         style: TextStyle(
-                                            //             fontSize: 14,
-                                            //             color: Colors.grey
-                                            //                 .withOpacity(0.8)),
-                                            //       ),
-                                            //     ],
-                                            //   ),
-                                            // ),
                                           ],
                                         ),
                                       ),
@@ -239,3 +206,4 @@ class HotelListView extends StatelessWidget {
     );
   }
 }
+ 

@@ -16,7 +16,7 @@ class HomeList {
   static List<HomeList> homeList = [
     HomeList(
       imagePath: 'assets/introduction_animation/NanJingMuseum.jpg',
-      navigateScreen: IntroductionAnimationScreen(),
+      navigateScreen: HotelHomeScreen(),
     ),
     HomeList(
       imagePath: 'assets/hotel/XuZhouMuseum.jpg',
@@ -24,11 +24,11 @@ class HomeList {
     ),
     HomeList(
       imagePath: 'assets/fitness_app/GuGongMuseum.png',
-      navigateScreen: FitnessAppHomeScreen(),
+      navigateScreen: HotelHomeScreen(),
     ),
     HomeList(
-      imagePath: 'assets/design_course/design_course.png',
-      navigateScreen: DesignCourseHomeScreen(),
+      imagePath: 'assets/introduction_animation/NanJingMuseum.jpg',
+      navigateScreen: HotelHomeScreen(),
     ),
   ];
 }
