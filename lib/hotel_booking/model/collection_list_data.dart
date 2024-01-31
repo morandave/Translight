@@ -18,8 +18,8 @@ class NetworkRequest {
 
       List<Map<String, dynamic>> parsedResponse = [];
       responseConvert(processedResponse, parsedResponse);
-      List<HotelListData> hotelList = parsedResponse
-          .map((item) => HotelListData.fromJson(item))
+      List<CollectionListData> hotelList = parsedResponse
+          .map((item) => CollectionListData.fromJson(item))
           .toList();
 
       return {
@@ -59,8 +59,8 @@ class NetworkRequest {
   }
 }
 
-class HotelListData {
-  HotelListData({
+class CollectionListData {
+  CollectionListData({
     this.imageurl = '',
     this.name = '',
     this.category = "",
@@ -88,8 +88,8 @@ class HotelListData {
   int reviews;
   int perNight;
 
-  factory HotelListData.fromJson(Map<String, dynamic> json) {
-    return HotelListData(
+  factory CollectionListData.fromJson(Map<String, dynamic> json) {
+    return CollectionListData(
       imageurl: json['image'],
       name: json['name'],
       category: json['category'],

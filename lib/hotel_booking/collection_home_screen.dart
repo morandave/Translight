@@ -1,12 +1,12 @@
 import 'package:best_flutter_ui_templates/hotel_booking/calendar_popup_view.dart';
-import 'package:best_flutter_ui_templates/hotel_booking/hotel_list_view.dart';
-import 'package:best_flutter_ui_templates/hotel_booking/model/hotel_list_data.dart';
+import 'package:best_flutter_ui_templates/hotel_booking/collection_list_view.dart';
+import 'package:best_flutter_ui_templates/hotel_booking/model/collection_list_data.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import '../design_course/design_course_app_theme.dart';
 import 'filters_screen.dart';
-import 'hotel_app_theme.dart';
+import 'collection_app_theme.dart';
 
 class HotelHomeScreen extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class HotelHomeScreen extends StatefulWidget {
 class _HotelHomeScreenState extends State<HotelHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  List<HotelListData> hotelList = [];
+  List<CollectionListData> hotelList = [];
   int collectionNum = 0;
   final ScrollController _scrollController = ScrollController();
 
