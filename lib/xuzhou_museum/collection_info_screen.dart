@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'model/collection_list_data.dart';
 import '../design_course/design_course_app_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:best_flutter_ui_templates/hotel_booking/collection_app_theme.dart';
+import 'package:best_flutter_ui_templates/xuzhou_museum/collection_app_theme.dart';
 
 class CourseInfoScreen extends StatefulWidget {
   CollectionListData? hotelData;

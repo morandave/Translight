@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:best_flutter_ui_templates/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'hotel_booking/collection_info_screen.dart';
+import 'xuzhou_museum/collection_info_screen.dart';
 import 'navigation_home_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 

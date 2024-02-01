@@ -25,6 +25,7 @@ class NetworkRequest {
       return {
         'hotelList': hotelList,
         'collectionNum': collectionNum,
+
       };
     } else {
       throw Exception('Failed to load data');

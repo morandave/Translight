@@ -1,6 +1,6 @@
-import 'package:best_flutter_ui_templates/hotel_booking/calendar_popup_view.dart';
-import 'package:best_flutter_ui_templates/hotel_booking/collection_list_view.dart';
-import 'package:best_flutter_ui_templates/hotel_booking/model/collection_list_data.dart';
+import 'package:best_flutter_ui_templates/xuzhou_museum/calendar_popup_view.dart';
+import 'package:best_flutter_ui_templates/xuzhou_museum/collection_list_view.dart';
+import 'package:best_flutter_ui_templates/xuzhou_museum/model/collection_list_data.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';

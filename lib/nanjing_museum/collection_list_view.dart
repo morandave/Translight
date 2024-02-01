@@ -64,13 +64,15 @@ class HotelListView extends StatelessWidget {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            AspectRatio(
-                              aspectRatio: 2,
-                              child: Image.network(
-                                'https://moran-collection.obs.cn-north-4.myhuaweicloud.com/NanJingMuseum/images/'+ hotelData!.id +'.jpeg',
-                                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                  return Image.network('https://moran-collection.obs.cn-north-4.myhuaweicloud.com/NanJingMuseum/images/'+ hotelData!.id +'.png');
-                                },
+                            Center(
+                              child: AspectRatio(
+                                aspectRatio: 2,
+                                child: Image.network(
+                                  'https://moran-collection.obs.cn-north-4.myhuaweicloud.com/NanJingMuseum/images/'+ hotelData!.id +'.jpeg',
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                    return Image.network('https://moran-collection.obs.cn-north-4.myhuaweicloud.com/NanJingMuseum/images/'+ hotelData!.id +'.png');
+                                  },
+                                ),
                               ),
                             ),
                             Container(
