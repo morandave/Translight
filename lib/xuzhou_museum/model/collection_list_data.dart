@@ -104,4 +104,11 @@ class CollectionListData {
       perNight: 180,
     );
   }
+
+  static List<CollectionListData> filterByName(
+      String filterName, List<CollectionListData> dataList) {
+    return dataList
+        .where((data) => data.name.toLowerCase().contains(filterName.toLowerCase()))
+        .toList();
+  }
 }

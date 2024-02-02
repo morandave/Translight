@@ -17,26 +17,33 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
   List<CollectionListData> hotelList = [];
-  int collectionNum = 0;
+  List<CollectionListData> originalHotelList = [];
+  int collectionNum = 350;
+  String? selectedPeriodRange = '';
+  String? selectedCategoryRange = '';
   final ScrollController _scrollController = ScrollController();
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
 
   @override
-  void initState(){
+  void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
     super.initState();
-    fetchData();//initState()不允许async，得用一个saync函数在里面
+    fetchData(); //initState()不允许async，得用一个saync函数在里面
   }
 
   void fetchData() async {
-    NetworkRequest networkRequest = NetworkRequest(url: 'http://101.200.197.49:5000/chinese/filter_collections?name%3D&category%3D=&existing_location%3D&period%3D=&artist%3D');
+    NetworkRequest networkRequest = NetworkRequest(
+        url:
+            'http://101.200.197.49:5000/chinese/filter_collections?name%3D&category%3D=&existing_location%3D&period%3D=&artist%3D');
     Map<String, dynamic> result = await networkRequest.fetchData();
-    hotelList = result['hotelList'];
-    collectionNum = result['collectionNum'];
-    setState(() {});
+    setState(() {
+      hotelList = result['hotelList'];
+      collectionNum = result['collectionNum'];
+      originalHotelList = result['hotelList'];
+    });
   }
 
   Future<bool> getData() async {
@@ -238,28 +245,54 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                       showDemoDialog(context: context);
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8, right: 8, top: 4, bottom: 4),
-                      child: Column(
+                      padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            'Choose date',
-                            style: TextStyle(
+                          DropdownButton<String>(
+                            value: selectedPeriodRange,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedPeriodRange = newValue;
+                                if (selectedPeriodRange != null) {
+                                  hotelList = originalHotelList
+                                      .where((data) => data.period
+                                          .toLowerCase()
+                                          .contains(selectedPeriodRange!.toLowerCase()))
+                                      .toList();
+                                }
+                              });
+                            },
+                            hint: Text(
+                              '朝代', // 设置提示文字
+                              style: TextStyle(
                                 fontWeight: FontWeight.w100,
                                 fontSize: 16,
-                                color: Colors.grey.withOpacity(0.8)),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '${DateFormat("dd, MMM").format(startDate)} - ${DateFormat("dd, MMM").format(endDate)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w100,
-                              fontSize: 16,
+                              ),
                             ),
+                            items: <String>[
+                              '',
+                              '西汉',
+                              '东汉',
+                              '三国',
+                              // Add more options as needed
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value, // Ensure each value is unique
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      value,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w100,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toSet().toList(),
                           ),
                         ],
                       ),
@@ -294,28 +327,54 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8, right: 8, top: 4, bottom: 4),
-                      child: Column(
+                      padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            'Number of Rooms',
-                            style: TextStyle(
+                          DropdownButton<String>(
+                            value: selectedCategoryRange,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedCategoryRange = newValue;
+                                if (selectedCategoryRange != null) {
+                                  hotelList = originalHotelList
+                                      .where((data) => data.category
+                                          .toLowerCase()
+                                          .contains(selectedCategoryRange!.toLowerCase()))
+                                      .toList();
+                                }
+                              });
+                            },
+                            hint: Text(
+                              '种类', // 设置提示文字
+                              style: TextStyle(
                                 fontWeight: FontWeight.w100,
                                 fontSize: 16,
-                                color: Colors.grey.withOpacity(0.8)),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '1 Room - 2 Adults',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w100,
-                              fontSize: 16,
+                              ),
                             ),
+                            items: <String>[
+                              '',
+                              '玺印',
+                              '字画',
+                              '兵器',
+                              // Add more options as needed
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value, // Ensure each value is unique
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      value,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w100,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toSet().toList(),
                           ),
                         ],
                       ),
@@ -355,7 +414,19 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                   padding: const EdgeInsets.only(
                       left: 16, right: 16, top: 4, bottom: 4),
                   child: TextField(
-                    onChanged: (String txt) {},
+                    onChanged: (String txt) {
+                      setState(() {
+                        if (txt.isEmpty) {
+                          // 如果输入框内容为空，则清空筛选条件，显示所有数据
+                          hotelList = originalHotelList;
+                        } else {
+                          // 否则，根据输入框内容进行筛选
+                          hotelList = originalHotelList
+                              .where((data) => data.name.toLowerCase().contains(txt.toLowerCase()))
+                              .toList();
+                        }
+                      });
+                    },
                     style: const TextStyle(
                       fontSize: 18,
                     ),
