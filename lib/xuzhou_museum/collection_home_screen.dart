@@ -19,8 +19,8 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
   List<CollectionListData> hotelList = [];
   List<CollectionListData> originalHotelList = [];
   int collectionNum = 350;
-  String? selectedPeriodRange = '';
-  String? selectedCategoryRange = '';
+  String? selectedPeriodRange ;
+  String? selectedCategoryRange ;
   final ScrollController _scrollController = ScrollController();
 
   DateTime startDate = DateTime.now();
@@ -226,6 +226,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
         children: <Widget>[
           Expanded(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Material(
                   color: Colors.transparent,
@@ -255,12 +256,15 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                             onChanged: (String? newValue) {
                               setState(() {
                                 selectedPeriodRange = newValue;
-                                if (selectedPeriodRange != null) {
+                                if (selectedPeriodRange != null && selectedPeriodRange != '朝代') {
                                   hotelList = originalHotelList
                                       .where((data) => data.period
                                           .toLowerCase()
                                           .contains(selectedPeriodRange!.toLowerCase()))
                                       .toList();
+                                }
+                                else if(selectedPeriodRange == '朝代'){
+                                  hotelList = originalHotelList;
                                 }
                               });
                             },
@@ -272,7 +276,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                               ),
                             ),
                             items: <String>[
-                              '',
+                              '朝代',
                               '西汉',
                               '东汉',
                               '三国',
@@ -312,6 +316,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
           ),
           Expanded(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Material(
                   color: Colors.transparent,
@@ -337,12 +342,15 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                             onChanged: (String? newValue) {
                               setState(() {
                                 selectedCategoryRange = newValue;
-                                if (selectedCategoryRange != null) {
+                                if (selectedCategoryRange != null && selectedCategoryRange != '类别') {
                                   hotelList = originalHotelList
                                       .where((data) => data.category
                                           .toLowerCase()
                                           .contains(selectedCategoryRange!.toLowerCase()))
                                       .toList();
+                                }
+                                else if(selectedPeriodRange == '类别'){
+                                  hotelList = originalHotelList;
                                 }
                               });
                             },
@@ -354,7 +362,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                               ),
                             ),
                             items: <String>[
-                              '',
+                              '类别',
                               '玺印',
                               '字画',
                               '兵器',
@@ -517,49 +525,49 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                     ),
                   ),
                 ),
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    focusColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.grey.withOpacity(0.2),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(4.0),
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                            builder: (BuildContext context) => FiltersScreen(),
-                            fullscreenDialog: true),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'Filter',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              letterSpacing: 0.27,
-                              color: DesignCourseAppTheme.grey,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.sort,
-                                color: HotelAppTheme.buildLightTheme()
-                                    .primaryColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Material(
+                //   color: Colors.transparent,
+                //   child: InkWell(
+                //     focusColor: Colors.transparent,
+                //     highlightColor: Colors.transparent,
+                //     hoverColor: Colors.transparent,
+                //     splashColor: Colors.grey.withOpacity(0.2),
+                //     borderRadius: const BorderRadius.all(
+                //       Radius.circular(4.0),
+                //     ),
+                //     onTap: () {
+                //       FocusScope.of(context).requestFocus(FocusNode());
+                //       Navigator.push<dynamic>(
+                //         context,
+                //         MaterialPageRoute<dynamic>(
+                //             builder: (BuildContext context) => FiltersScreen(),
+                //             fullscreenDialog: true),
+                //       );
+                //     },
+                //     child: Padding(
+                //       padding: const EdgeInsets.only(left: 8),
+                //       child: Row(
+                //         children: <Widget>[
+                //           Text(
+                //             'Filter',
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontSize: 18,
+                //               letterSpacing: 0.27,
+                //               color: DesignCourseAppTheme.grey,
+                //             ),
+                //           ),
+                //           Padding(
+                //             padding: const EdgeInsets.all(8.0),
+                //             child: Icon(Icons.sort,
+                //                 color: HotelAppTheme.buildLightTheme()
+                //                     .primaryColor),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

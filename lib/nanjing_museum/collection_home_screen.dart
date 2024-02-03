@@ -19,8 +19,8 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
   List<CollectionListData> hotelList = [];
   List<CollectionListData> originalHotelList = [];
   int collectionNum = 550;
-  String? selectedPeriodRange = '';
-  String? selectedCategoryRange = '';
+  String? selectedPeriodRange;
+  String? selectedCategoryRange;
   final ScrollController _scrollController = ScrollController();
 
   DateTime startDate = DateTime.now();
@@ -271,7 +271,7 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
                               ),
                             ),
                             items: <String>[
-                              '',
+                          
                               '西汉',
                               '东汉',
                               '三国',
@@ -353,7 +353,7 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
                               ),
                             ),
                             items: <String>[
-                              '',
+                        
                               '玺印',
                               '字画',
                               '兵器',
@@ -517,49 +517,49 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
                     ),
                   ),
                 ),
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    focusColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.grey.withOpacity(0.2),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(4.0),
-                    ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                            builder: (BuildContext context) => FiltersScreen(),
-                            fullscreenDialog: true),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            'Filter',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              letterSpacing: 0.27,
-                              color: DesignCourseAppTheme.grey,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.sort,
-                                color: HotelAppTheme.buildLightTheme()
-                                    .primaryColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Material(
+                //   color: Colors.transparent,
+                //   child: InkWell(
+                //     focusColor: Colors.transparent,
+                //     highlightColor: Colors.transparent,
+                //     hoverColor: Colors.transparent,
+                //     splashColor: Colors.grey.withOpacity(0.2),
+                //     borderRadius: const BorderRadius.all(
+                //       Radius.circular(4.0),
+                //     ),
+                //     onTap: () {
+                //       FocusScope.of(context).requestFocus(FocusNode());
+                //       Navigator.push<dynamic>(
+                //         context,
+                //         MaterialPageRoute<dynamic>(
+                //             builder: (BuildContext context) => FiltersScreen(),
+                //             fullscreenDialog: true),
+                //       );
+                //     },
+                //     child: Padding(
+                //       padding: const EdgeInsets.only(left: 8),
+                //       child: Row(
+                //         children: <Widget>[
+                //           Text(
+                //             'Filter',
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontSize: 18,
+                //               letterSpacing: 0.27,
+                //               color: DesignCourseAppTheme.grey,
+                //             ),
+                //           ),
+                //           Padding(
+                //             padding: const EdgeInsets.all(8.0),
+                //             child: Icon(Icons.sort,
+                //                 color: HotelAppTheme.buildLightTheme()
+                //                     .primaryColor),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
