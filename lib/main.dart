@@ -34,10 +34,6 @@ class MyApp extends StatelessWidget {
         textTheme: AppTheme.textTheme,
         platform: TargetPlatform.iOS,
       ),
-      routes: {
-        '/courseInfo': (context) => CourseInfoScreen(),
-        // ...其他路由
-      },
       home: NavigationHomeScreen(),
     );
   }
