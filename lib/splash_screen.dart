@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'login.dart';
 import 'navigation_home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen>
             ..duration = composition.duration
             ..forward().whenComplete(() => Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => NavigationHomeScreen()),
+              MaterialPageRoute(builder: (context) => LoginPage()),
             ));
         },
       ),
