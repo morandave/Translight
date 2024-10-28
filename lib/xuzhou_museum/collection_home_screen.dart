@@ -276,10 +276,10 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                               ),
                             ),
                             items: <String>[
-                              '朝代',
                               '西汉',
-                              '东汉',
-                              '三国',
+                              '唐',
+                              '明',
+                              '清',
                               // Add more options as needed
                             ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
@@ -364,8 +364,12 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                             items: <String>[
                               '类别',
                               '玺印',
-                              '字画',
-                              '兵器',
+                              '玉石器',
+                              '陶瓷器',
+                              '铜铁器',
+                              '金银器',
+                              '书画',
+                              '陶俑',
                               // Add more options as needed
                             ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(

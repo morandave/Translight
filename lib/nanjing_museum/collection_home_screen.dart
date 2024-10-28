@@ -272,9 +272,9 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
                             ),
                             items: <String>[
                           
-                              '西汉',
-                              '东汉',
-                              '三国',
+                              '新石器时代',
+                              '唐',
+                              '宋',
                               // Add more options as needed
                             ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
@@ -353,10 +353,12 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
                               ),
                             ),
                             items: <String>[
-                        
-                              '玺印',
-                              '字画',
-                              '兵器',
+
+                              '玉石',
+                              '陶器',
+                              '瓷器',
+                              '金银器',
+                              '书画',
                               // Add more options as needed
                             ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
