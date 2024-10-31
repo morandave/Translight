@@ -44,6 +44,10 @@ dependencies:
   lottie: ^2.3.2
   sqflite: ^2.2.8+4
   path: ^1.8.2
+  path_provider: ^2.1.1
+  test: ^1.22.0
+  sqflite_common_ffi: ^2.2.5
+  sqflite_common_ffi_web: ^0.3.5+1
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +79,7 @@ flutter:
     - assets/hotel/
     - assets/introduction_animation/
     - assets/T.json
+    - assets/database/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

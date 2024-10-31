@@ -4,6 +4,8 @@ import 'package:best_flutter_ui_templates/nanjing_museum/model/collection_list_d
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import '../data_model.dart';
+import '../db.dart';
 import '../design_course/design_course_app_theme.dart';
 import 'filters_screen.dart';
 import 'collection_app_theme.dart';
@@ -18,7 +20,7 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
   AnimationController? animationController;
   List<CollectionListData> hotelList = [];
   List<CollectionListData> originalHotelList = [];
-  int collectionNum = 550;
+  int collectionNum = 9760;
   String? selectedPeriodRange;
   String? selectedCategoryRange;
   final ScrollController _scrollController = ScrollController();
@@ -33,16 +35,33 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
     super.initState();
     fetchData(); //initState()不允许async，得用一个saync函数在里面
   }
+  Future<List<CollectionListData>> convertToCollectionListData(
+      List<Collection> futureCollections) async {
+    // 等待 futureCollections 完成，并获取 List<Collection> 的值
+    final List<Collection> collections = await futureCollections;
 
+    // 将 List<Collection> 转换为 List<CollectionListData>
+    return collections.map((collection) {
+      return CollectionListData(
+        url: collection.image,
+        name: collection.name,
+        category: collection.category,
+        period: collection.period,
+        existingLocation: collection.existingLocation,
+        dimension: collection.dimensions,
+        introduction: collection.introduction,
+      );
+    }).toList();
+  }
   void fetchData() async {
-    NetworkRequest networkRequest = NetworkRequest(
-        url:
-            'http://101.200.197.49:5001/nj/chinese/filter_collections?name%3D&category%3D&period%3D=');
-    Map<String, dynamic> result = await networkRequest.fetchData();
-    hotelList = result['hotelList'];
-    collectionNum = result['collectionNum'];
-    originalHotelList = result['hotelList'];
-    setState(() {});
+    CollectionDatabase xz_ch =
+    CollectionDatabase('nanjing_chinese.sqlite');
+    List<CollectionListData> result = await convertToCollectionListData(await xz_ch.collections());
+    setState(() {
+      hotelList = result;
+      collectionNum = result.length;
+      originalHotelList = result;
+    });
   }
 
   Future<bool> getData() async {
@@ -353,7 +372,6 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
                               ),
                             ),
                             items: <String>[
-
                               '玉石',
                               '陶器',
                               '瓷器',

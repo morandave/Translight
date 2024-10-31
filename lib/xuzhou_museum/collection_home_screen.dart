@@ -3,9 +3,10 @@ import 'package:best_flutter_ui_templates/xuzhou_museum/collection_list_view.dar
 import 'package:best_flutter_ui_templates/xuzhou_museum/model/collection_list_data.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+import 'package:best_flutter_ui_templates/data_model.dart';
 import '../design_course/design_course_app_theme.dart';
 import 'filters_screen.dart';
+import 'package:best_flutter_ui_templates/db.dart';
 import 'collection_app_theme.dart';
 
 class HotelHomeScreen extends StatefulWidget {
@@ -33,16 +34,34 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
     super.initState();
     fetchData(); //initState()不允许async，得用一个saync函数在里面
   }
+Future<List<CollectionListData>> convertToCollectionListData(
+    List<Collection> futureCollections) async {
+  // 等待 futureCollections 完成，并获取 List<Collection> 的值
+  final List<Collection> collections = await futureCollections;
+
+  // 将 List<Collection> 转换为 List<CollectionListData>
+  return collections.map((collection) {
+    return CollectionListData(
+      imageurl: collection.image,
+      name: collection.name,
+      category: collection.category,
+      period: collection.period,
+      existingLocation: collection.existingLocation,
+      dimension: collection.dimensions,
+      introduction: collection.introduction,
+      origin: collection.collectionSource,
+    );
+  }).toList();
+}
 
   void fetchData() async {
-    NetworkRequest networkRequest = NetworkRequest(
-        url:
-            'http://101.200.197.49:5000/chinese/filter_collections?name%3D&category%3D=&existing_location%3D&period%3D=&artist%3D');
-    Map<String, dynamic> result = await networkRequest.fetchData();
+    CollectionDatabase xz_ch =
+        CollectionDatabase('xuzhou_chinese.sqlite');
+    List<CollectionListData> result = await convertToCollectionListData(await xz_ch.collections());
     setState(() {
-      hotelList = result['hotelList'];
-      collectionNum = result['collectionNum'];
-      originalHotelList = result['hotelList'];
+      hotelList = result;
+      collectionNum = result.length;
+      originalHotelList = result;
     });
   }
 

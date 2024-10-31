@@ -1,28 +1,31 @@
-
 // 数据类
-class CollectionListData {
-  String imageurl;
+class Collection {
+  int id;
+  String image;
   String name;
   String category;
   String period;
   String existingLocation;
-  String dimension;
+  String dimensions;
   String introduction;
-  String origin;
+  String collectionSource;
+  String artist;
   double dist;
   double rating;
   int reviews;
   int perNight;
 
-  CollectionListData({
-    this.imageurl = '',
+  Collection({
+    this.id = 0,
+    this.image = '',
     this.name = '',
     this.category = "",
     this.period = "",
     this.existingLocation = '',
-    this.dimension = '',
+    this.dimensions = '',
     this.introduction = '',
-    this.origin = '',
+    this.artist = '',
+    this.collectionSource = '',
     this.dist = 1.8,
     this.reviews = 80,
     this.rating = 4.5,
@@ -33,18 +36,20 @@ class CollectionListData {
   // columns in the database.
   Map<String, Object?> toMap() {
     return {
-      'imageurl': imageurl,
+      'id': id,
+      'image': image,
       'name': name,
       'category': category,
       'period': period,
       'existingLocation': existingLocation,
-      'dimension': dimension,
+      'dimensions': dimensions,
       'introduction': introduction,
-      'origin': origin,
-      'dist': dist,
-      'rating': rating,
-      'reviews': reviews,
-      'perNight': perNight,
+      'artist': artist,
+      'collectionSource': collectionSource,
+      // 'dist': dist,
+      // 'rating': rating,
+      // 'reviews': reviews,
+      // 'perNight': perNight,
     };
   }
 
@@ -52,7 +57,6 @@ class CollectionListData {
   // each dog when using the print statement.
   @override
   String toString() {
-    return 'CollectionListData{imageurl: $imageurl, category: $category, period: $period, existingLocation: $existingLocation, dimension: $dimension, introduction: $introduction, origin: $origin, dist: $dist, rating: $rating, reviews: $reviews, perNight: $perNight}';
+    return 'Collection{id: $id, image: $image, name: $name, category: $category, period: $period, existingLocation: $existingLocation, dimensions: $dimensions, introduction: $introduction, artist: $artist, collectionSource: $collectionSource, dist: $dist, rating: $rating, reviews: $reviews, perNight: $perNight}';
   }
 }
-
