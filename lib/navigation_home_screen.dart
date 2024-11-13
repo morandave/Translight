@@ -7,6 +7,8 @@ import 'package:best_flutter_ui_templates/custom_drawer/favorite.dart';
 import 'package:best_flutter_ui_templates/custom_drawer/invite_friend_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'chatPage.dart';
+
 class NavigationHomeScreen extends StatefulWidget {
   @override
   _NavigationHomeScreenState createState() => _NavigationHomeScreenState();
@@ -42,6 +44,17 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
             screenView: screenView,
             //we replace screen view as we need on navigate starting screens like MyHomePage, HelpScreen, FeedbackScreen, etc...
           ),
+            floatingActionButton:FloatingActionButton(
+              onPressed: () {
+                // 点击悬浮按钮时跳转到 ChatPage 页面
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatPage()),
+                );
+              },
+              child: Icon(Icons.chat), // 使用聊天图标
+              backgroundColor: Colors.blue, // 设置按钮背景色
+            ),
         ),
       ),
     );

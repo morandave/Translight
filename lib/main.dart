@@ -4,8 +4,7 @@ import 'package:best_flutter_ui_templates/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'db.dart';
-import 'package:best_flutter_ui_templates/chatpage.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
         textTheme: AppTheme.textTheme,
         platform: TargetPlatform.iOS,
       ),
-      home: ChatPage(),
+      home: SplashScreen(),
     );
   }
 }
