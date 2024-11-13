@@ -35,6 +35,11 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
     super.initState();
     fetchData(); //initState()不允许async，得用一个saync函数在里面
   }
+  String extractIdFromUrl(String url) {
+    RegExp regExp = RegExp(r'id=(\d+)');
+    Match? match = regExp.firstMatch(url);
+    return match != null ? match.group(1)! : "未找到 ID";
+  }
   Future<List<CollectionListData>> convertToCollectionListData(
       List<Collection> futureCollections) async {
     // 等待 futureCollections 完成，并获取 List<Collection> 的值
@@ -43,7 +48,7 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
     // 将 List<Collection> 转换为 List<CollectionListData>
     return collections.map((collection) {
       return CollectionListData(
-        url: collection.image,
+        id: extractIdFromUrl(collection.image),
         name: collection.name,
         category: collection.category,
         period: collection.period,
@@ -527,7 +532,7 @@ class _NanjingHomeScreenState extends State<NanjingHomeScreen>
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '${collectionNum} collections found',
+                      '${collectionNum}件藏品',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,

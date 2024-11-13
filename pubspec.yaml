@@ -48,6 +48,7 @@ dependencies:
   test: ^1.22.0
   sqflite_common_ffi: ^2.2.5
   sqflite_common_ffi_web: ^0.3.5+1
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +81,7 @@ flutter:
     - assets/introduction_animation/
     - assets/T.json
     - assets/database/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
